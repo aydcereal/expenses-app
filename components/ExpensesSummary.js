@@ -5,7 +5,7 @@ function ExpensesSummary({ range, totalAmount }) {
     <View style={styles.rangeContainer}>
       <Text style={styles.Text}>{range}</Text>
       <View>
-        <Text style={styles.Text}>${totalAmount}</Text>
+        <Text style={styles.Text}>${totalAmount.toFixed(2)}</Text>
       </View>
     </View>
   );

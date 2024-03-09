@@ -12,7 +12,7 @@ function ExpenseList({ expensesList = [] }) {
               <Text style={styles.date}>{item.date}</Text>
             </View>
             <View style={styles.amountContainer}>
-              <Text style={styles.amount}>${item.amount}</Text>
+              <Text style={styles.amount}>${item.amount.toFixed(2)}</Text>
             </View>
           </View>
         );
