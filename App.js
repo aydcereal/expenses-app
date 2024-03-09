@@ -17,13 +17,13 @@ function TabNavigator() {
   return (
     <Tab.Navigator
       screenOptions={({ navigation }) => ({
-        headerTintColor: "#d61313",
+        headerTintColor: "#c41230",
         headerRight: () => (
           <View style={{ marginRight: 20 }}>
             <IconButton
               icon={"add"}
               color={"black"}
-              onPress={() => navigation.navigate("AddExpense")}
+              onPress={() => navigation.navigate("Add Expense")}
             />
           </View>
         ),
@@ -36,7 +36,7 @@ function TabNavigator() {
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="hourglass-outline" color={color} size={size} />
           ),
-          tabBarActiveTintColor: "#d61313",
+          tabBarActiveTintColor: "#c41230",
         }}
       />
       <Tab.Screen
@@ -46,7 +46,7 @@ function TabNavigator() {
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="calendar" color={color} size={size} />
           ),
-          tabBarActiveTintColor: "#d61313",
+          tabBarActiveTintColor: "#c41230",
         }}
       />
     </Tab.Navigator>
@@ -58,13 +58,18 @@ const RootStack = createStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <RootStack.Navigator>
+      <RootStack.Navigator
+        screenOptions={{
+          headerTitleStyle: { color: "#c41230" },
+          headerTintColor: "#012169",
+        }}
+      >
         <RootStack.Screen
           options={{ headerShown: false }}
           name="Home"
           component={TabNavigator}
         />
-        <RootStack.Screen name="AddExpense" component={AddExpense} />
+        <RootStack.Screen name="Add Expense" component={AddExpense} />
       </RootStack.Navigator>
     </NavigationContainer>
   );

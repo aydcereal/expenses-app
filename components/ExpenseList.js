@@ -12,7 +12,7 @@ function ExpenseList({ expensesList = [] }) {
               <Text style={styles.date}>{item.date}</Text>
             </View>
             <View style={styles.amountContainer}>
-              <Text style={styles.amount}>{item.amount}</Text>
+              <Text style={styles.amount}>${item.amount}</Text>
             </View>
           </View>
         );
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginHorizontal: 25,
+
     marginVertical: 5,
     padding: 10,
     flex: 1,
@@ -40,8 +40,8 @@ const styles = StyleSheet.create({
   },
   date: {},
   amountContainer: {
-    backgroundColor: "gray",
-    minWidth: 80,
+    backgroundColor: "#012169",
+    minWidth: 90,
     padding: 15,
     borderRadius: 5,
   },

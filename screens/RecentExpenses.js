@@ -1,6 +1,7 @@
-import { ScrollView } from "react-native";
+import { ScrollView, View, Text, StyleSheet } from "react-native";
 import expenses from "../data/expenses.json";
 import ExpenseList from "../components/ExpenseList";
+import ExpensesSummary from "../components/ExpensesSummary";
 
 let tenDaysAgo = new Date();
 tenDaysAgo.setDate(tenDaysAgo.getDate() - 10);
@@ -16,13 +17,26 @@ let sortedExpenses = filteredExpenses.sort((a, b) => {
   return dateB - dateA;
 });
 
+let totalAmount = sortedExpenses.reduce(
+  (total, expense) => total + expense.amount,
+  0
+);
+
 function RecentExpenses() {
   console.log(filteredExpenses);
   return (
-    <ScrollView>
+    <ScrollView style={styles.rootContainer}>
+      <ExpensesSummary range={"Last 7 Days"} totalAmount={totalAmount} />
+
       <ExpenseList expensesList={sortedExpenses} />
     </ScrollView>
   );
 }
+
+const styles = StyleSheet.create({
+  rootContainer: {
+    margin: 25,
+  },
+});
 
 export default RecentExpenses;
