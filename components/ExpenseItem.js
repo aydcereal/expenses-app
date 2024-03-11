@@ -1,24 +1,30 @@
 import { Text, View, ScrollView, StyleSheet, Pressable } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import ExpenseItem from "./ExpenseItem";
-function ExpenseList({ expensesList }) {
+
+function ExpenseItem({ title, date, amount, id, index }) {
+  const navigation = useNavigation();
+
+  function expensePressHandler() {
+    navigation.navigate("Add Expense", {
+      expenseId: id,
+    });
+  }
+
   return (
-    <ScrollView>
-      {expensesList.map((item, index) => {
-        {
-          console.log(item.id);
-        }
-        return (
-          <ExpenseItem
-            index={index}
-            id={item.id}
-            title={item.title}
-            date={item.date}
-            amount={item.amount}
-          />
-        );
-      })}
-    </ScrollView>
+    <Pressable
+      style={({ pressed }) => pressed && styles.pressed}
+      onPress={expensePressHandler}
+    >
+      <View key={index} style={styles.container}>
+        <View>
+          <Text style={styles.title}>{title}</Text>
+          <Text style={styles.date}>{date}</Text>
+        </View>
+        <View style={styles.amountContainer}>
+          <Text style={styles.amount}>${amount.toFixed(2)}</Text>
+        </View>
+      </View>
+    </Pressable>
   );
 }
 
@@ -56,4 +62,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ExpenseList;
+export default ExpenseItem;

@@ -23,7 +23,6 @@ let totalAmount = sortedExpenses.reduce(
 );
 
 function RecentExpenses() {
-  console.log(filteredExpenses);
   return (
     <ScrollView style={styles.rootContainer}>
       <ExpensesSummary range={"Last 7 Days"} totalAmount={totalAmount} />

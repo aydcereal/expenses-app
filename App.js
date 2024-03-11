@@ -69,7 +69,11 @@ export default function App() {
           name="Home"
           component={TabNavigator}
         />
-        <RootStack.Screen name="Add Expense" component={AddExpense} />
+        <RootStack.Screen
+          name="Add Expense"
+          component={AddExpense}
+          options={{ presentation: "modal" }}
+        />
       </RootStack.Navigator>
     </NavigationContainer>
   );
