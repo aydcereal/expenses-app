@@ -13,22 +13,57 @@ function AddExpense({ route, navigation }) {
     });
   }, [navigation, isEditing]);
 
-  function deleteExpenseHandler() {}
+  function deleteExpenseHandler() {
+    console.log("delete");
+    navigation.goBack();
+  }
 
+  function cancelHandler() {
+    console.log("Cancel");
+    navigation.goBack();
+  }
+
+  function confirmHandler() {
+    console.log("confirm");
+    navigation.goBack();
+  }
   return (
     <View>
-      {isEditing && (
+      {isEditing ? (
         <View>
           <View style={styles.innerContainer}>
-            <BasicButton style={styles.button} title={"Cancel"} />
-            <BasicButton style={styles.button} title={"Add"} />
+            <BasicButton
+              style={styles.button}
+              title={"Cancel"}
+              onPress={cancelHandler}
+            />
+            <BasicButton
+              style={styles.button}
+              title={"Confirm"}
+              onPress={confirmHandler}
+            />
           </View>
           <View style={styles.deleteContainer}>
             <IconButton
               icon="trash"
               color="#c41230"
-              size="medium"
+              size={36}
               onPress={deleteExpenseHandler}
+            />
+          </View>
+        </View>
+      ) : (
+        <View>
+          <View style={styles.innerContainer}>
+            <BasicButton
+              style={styles.button}
+              title={"Cancel"}
+              onPress={cancelHandler}
+            />
+            <BasicButton
+              style={styles.button}
+              title={"Add"}
+              onPress={confirmHandler}
             />
           </View>
         </View>
@@ -49,7 +84,7 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   deleteContainer: {
-    marginTop: 16,
+    margin: 16,
     padding: 8,
     borderTopWidth: 2,
     alignItems: "center",

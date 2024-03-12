@@ -3,7 +3,10 @@ import { Ionicons } from "@expo/vector-icons";
 
 function BasicButton({ icon, color, onPress, title }) {
   return (
-    <Pressable style={({ pressed }) => pressed && styles.pressed}>
+    <Pressable
+      onPress={onPress}
+      style={({ pressed }) => pressed && styles.pressed}
+    >
       <View style={styles.buttonContainer}>
         <Text style={styles.text}>{title}</Text>
       </View>

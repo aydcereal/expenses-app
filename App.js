@@ -10,6 +10,7 @@ import AddExpense from "./screens/AddExpense";
 
 import { Ionicons } from "@expo/vector-icons";
 import IconButton from "./components/IconButton";
+import ExpensesContextProvider from "./components/store/expenses-context";
 
 const Tab = createBottomTabNavigator();
 
@@ -23,6 +24,7 @@ function TabNavigator() {
             <IconButton
               icon={"add"}
               color={"black"}
+              size={24}
               onPress={() => navigation.navigate("Add Expense")}
             />
           </View>
@@ -57,25 +59,27 @@ const RootStack = createStackNavigator();
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <RootStack.Navigator
-        screenOptions={{
-          headerTitleStyle: { color: "#c41230" },
-          headerTintColor: "#012169",
-        }}
-      >
-        <RootStack.Screen
-          options={{ headerShown: false }}
-          name="Home"
-          component={TabNavigator}
-        />
-        <RootStack.Screen
-          name="Add Expense"
-          component={AddExpense}
-          options={{ presentation: "modal" }}
-        />
-      </RootStack.Navigator>
-    </NavigationContainer>
+    <ExpensesContextProvider>
+      <NavigationContainer>
+        <RootStack.Navigator
+          screenOptions={{
+            headerTitleStyle: { color: "#c41230" },
+            headerTintColor: "#012169",
+          }}
+        >
+          <RootStack.Screen
+            options={{ headerShown: false }}
+            name="Home"
+            component={TabNavigator}
+          />
+          <RootStack.Screen
+            name="Add Expense"
+            component={AddExpense}
+            options={{ presentation: "modal" }}
+          />
+        </RootStack.Navigator>
+      </NavigationContainer>
+    </ExpensesContextProvider>
   );
 }
 
