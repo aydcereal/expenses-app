@@ -10,6 +10,7 @@ function ExpenseList({ expensesList }) {
         }
         return (
           <ExpenseItem
+            key={index}
             index={index}
             id={item.id}
             title={item.title}

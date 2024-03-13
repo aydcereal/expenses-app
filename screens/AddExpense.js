@@ -1,8 +1,9 @@
-import { Text, View, Button, StyleSheet } from "react-native";
+import { Text, View, Button, StyleSheet, TextInput } from "react-native";
 import BasicButton from "../components/BasicButton";
 import { useContext, useLayoutEffect } from "react";
 import IconButton from "../components/IconButton";
 import { ExpensesContext } from "../components/store/expenses-context";
+import ExpenseForm from "../components/manageExpenses/ExpenseForm";
 
 function AddExpense({ route, navigation }) {
   const expensesCtx = useContext(ExpensesContext);
@@ -44,20 +45,21 @@ function AddExpense({ route, navigation }) {
   }
   return (
     <View>
-      {isEditing ? (
-        <View>
-          <View style={styles.innerContainer}>
-            <BasicButton
-              style={styles.button}
-              title={"Cancel"}
-              onPress={cancelHandler}
-            />
-            <BasicButton
-              style={styles.button}
-              title={"Confirm"}
-              onPress={confirmHandler}
-            />
-          </View>
+      <View>
+        <ExpenseForm />
+        <View style={styles.innerContainer}>
+          <BasicButton
+            style={styles.button}
+            title={"Cancel"}
+            onPress={cancelHandler}
+          />
+          <BasicButton
+            style={styles.button}
+            title={isEditing ? "Update" : "Add"}
+            onPress={confirmHandler}
+          />
+        </View>
+        {isEditing && (
           <View style={styles.deleteContainer}>
             <IconButton
               icon="trash"
@@ -66,23 +68,8 @@ function AddExpense({ route, navigation }) {
               onPress={deleteExpenseHandler}
             />
           </View>
-        </View>
-      ) : (
-        <View>
-          <View style={styles.innerContainer}>
-            <BasicButton
-              style={styles.button}
-              title={"Cancel"}
-              onPress={cancelHandler}
-            />
-            <BasicButton
-              style={styles.button}
-              title={"Add"}
-              onPress={confirmHandler}
-            />
-          </View>
-        </View>
-      )}
+        )}
+      </View>
     </View>
   );
 }
