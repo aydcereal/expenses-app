@@ -21,7 +21,7 @@ function ExpenseItem({ title, date, amount, id, index }) {
           <Text style={styles.date}>{date}</Text>
         </View>
         <View style={styles.amountContainer}>
-          <Text style={styles.amount}>${amount.toFixed(2)}</Text>
+          <Text style={styles.amount}>${amount}</Text>
         </View>
       </View>
     </Pressable>

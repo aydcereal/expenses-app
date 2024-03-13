@@ -1,33 +1,42 @@
 import { ScrollView, View, Text, StyleSheet } from "react-native";
-import expenses from "../data/expenses.json";
+import { useContext } from "react";
 import ExpenseList from "../components/ExpenseList";
 import ExpensesSummary from "../components/ExpensesSummary";
 
-let tenDaysAgo = new Date();
-tenDaysAgo.setDate(tenDaysAgo.getDate() - 10);
-
-let filteredExpenses = expenses.filter((expense) => {
-  let expensedate = new Date(expense.date);
-  return expensedate > tenDaysAgo;
-});
-
-let sortedExpenses = filteredExpenses.sort((a, b) => {
-  let dateA = new Date(a.date),
-    dateB = new Date(b.date);
-  return dateB - dateA;
-});
-
-let totalAmount = sortedExpenses.reduce(
-  (total, expense) => total + expense.amount,
-  0
-);
+import { ExpensesContext } from "../components/store/expenses-context";
 
 function RecentExpenses() {
+  const ExpensesCtx = useContext(ExpensesContext);
+
+  let sevenDaysAgo = new Date();
+  sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 14);
+
+  let filteredExpenses = ExpensesCtx.expenses.filter((expense) => {
+    let expensedate = new Date(expense.date);
+    return expensedate > sevenDaysAgo;
+  });
+
+  let sortedExpenses = filteredExpenses.sort((a, b) => {
+    let dateA = new Date(a.date),
+      dateB = new Date(b.date);
+    return dateB - dateA;
+  });
+
+  let totalAmount = sortedExpenses.reduce(
+    (total, expense) => total + expense.amount,
+    0
+  );
+
+  let content = <Text style={styles.infoText}>No expenses found</Text>;
+
+  if (totalAmount > 0) {
+    content = <ExpenseList expensesList={sortedExpenses} />;
+  }
+
   return (
     <ScrollView style={styles.rootContainer}>
       <ExpensesSummary range={"Last 7 Days"} totalAmount={totalAmount} />
-
-      <ExpenseList expensesList={sortedExpenses} />
+      {content}
     </ScrollView>
   );
 }
@@ -35,6 +44,11 @@ function RecentExpenses() {
 const styles = StyleSheet.create({
   rootContainer: {
     margin: 25,
+  },
+  infoText: {
+    fontSize: 16,
+    marginTop: 32,
+    textAlign: "center",
   },
 });
 

@@ -37,7 +37,7 @@ export const ExpensesContext = createContext({
   expenses: [],
   addExpense: ({ description, amount, date }) => {},
   deleteExpense: ({ id }) => {},
-  updateExpense: (id, { description, amount, date }) => {},
+  updateExpense: (id, { title, amount, date }) => {},
 });
 
 function expensesReducer(state, action) {
@@ -52,7 +52,7 @@ function expensesReducer(state, action) {
       const updatableExpense = state[updatableExpenseIndex];
       const updatedItem = {
         ...updatableExpense,
-        ...action.payload.expenseData,
+        ...action.payload.data,
       };
       const updatedExpenses = [...state];
       updatedExpenses[updatableExpenseIndex] = updatedItem;
