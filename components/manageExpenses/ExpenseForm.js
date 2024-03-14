@@ -6,10 +6,7 @@ function ExpenseForm() {
 
   return (
     <View>
-      <Input
-        label="Title"
-        textInputConfig={{ keyboardType: "", multiLine: true }}
-      />
+      <Input label="Title" textInputConfig={{ multiLine: true }} />
       <Input
         label="Amount"
         textInputConfig={{

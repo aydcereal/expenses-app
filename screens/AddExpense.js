@@ -44,7 +44,7 @@ function AddExpense({ route, navigation }) {
     navigation.goBack();
   }
   return (
-    <View>
+    <View style={styles.rootContainer}>
       <View>
         <ExpenseForm />
         <View style={styles.innerContainer}>
@@ -75,6 +75,9 @@ function AddExpense({ route, navigation }) {
 }
 
 const styles = StyleSheet.create({
+  rootContainer: {
+    margin: 16,
+  },
   outerContainer: {
     alignItems: "center",
     justifyContent: "center",
