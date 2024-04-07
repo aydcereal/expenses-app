@@ -1,13 +1,14 @@
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Text, Alert } from "react-native";
 import Input from "./Input";
 import { useState } from "react";
 import BasicButton from "../BasicButton";
+import { getFormattedDate } from "../../util/date";
 
-function ExpenseForm({ onCancel, onSubmit, submitButtonLabel }) {
+function ExpenseForm({ onCancel, onSubmit, submitButtonLabel, defaultValue }) {
   const [inputValues, setInputValues] = useState({
-    amount: "",
-    date: "",
-    title: "",
+    amount: defaultValue ? defaultValue.amount.toString() : "",
+    date: defaultValue ? getFormattedDate(defaultValue.date) : "",
+    title: defaultValue ? defaultValue.title.toString() : "",
   });
 
   function inputChangedHandler(inputIdentifier, enteredValue) {
@@ -17,17 +18,25 @@ function ExpenseForm({ onCancel, onSubmit, submitButtonLabel }) {
         [inputIdentifier]: enteredValue.nativeEvent.text,
       };
     });
-    console.log(inputValues);
-    console.log(inputIdentifier);
   }
 
   function submitHandler() {
     const expenseData = {
       amount: +inputValues.amount,
-      date: inputValues.date,
+      date: new Date(inputValues.date),
       title: inputValues.title,
     };
-    console.log(expenseData);
+
+    const amounIsValid = !isNaN(expenseData.amount) && expenseData.amount > 0;
+    const dateIsValid = expenseData.date.toString() !== "Invalid Date";
+    const titleIsValid = expenseData.title.trim().length > 0;
+
+    if (!amounIsValid || !dateIsValid || !titleIsValid) {
+      console.log("Invalid");
+      Alert.alert("Invalid Values");
+      return;
+    }
+
     onSubmit(expenseData);
   }
 

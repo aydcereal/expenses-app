@@ -5,31 +5,31 @@ const DUMMY_EXPENSES = [
     id: 1,
     title: "Groceries",
     amount: 50.35,
-    date: "2024-03-05",
+    date: new Date("2024-03-05"),
   },
   {
     id: 2,
     title: "Rent",
     amount: 500.5,
-    date: "2024-03-01",
+    date: new Date("2024-03-01"),
   },
   {
     id: 3,
     title: "Utilities",
     amount: 100.56,
-    date: "2024-03-03",
+    date: new Date("2024-03-03"),
   },
   {
     id: 4,
     title: "Car Payment",
     amount: 200.25,
-    date: "2024-02-10",
+    date: new Date("2024-02-10"),
   },
   {
     id: 5,
     title: "Internet",
     amount: 60.99,
-    date: "2024-02-17",
+    date: new Date("2024-02-17"),
   },
 ];
 
