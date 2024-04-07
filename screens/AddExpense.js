@@ -42,6 +42,7 @@ function AddExpense({ route, navigation }) {
           submitButtonLabel={isEditing ? "Update" : "Add"}
           onCancel={cancelHandler}
           onSubmit={confirmHandler}
+          id={editedExpenseId}
         />
 
         {isEditing && (

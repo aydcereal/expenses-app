@@ -18,7 +18,7 @@ function ExpenseItem({ title, date, amount, id, index }) {
       <View key={index} style={styles.container}>
         <View>
           <Text style={styles.title}>{title}</Text>
-          {/* <Text style={styles.date}>{date}</Text> */}
+          <Text style={styles.date}>{date}</Text>
         </View>
         <View style={styles.amountContainer}>
           <Text style={styles.amount}>${amount}</Text>

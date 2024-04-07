@@ -24,7 +24,7 @@ function ExpenseForm({ onCancel, onSubmit, submitButtonLabel }) {
   function submitHandler() {
     const expenseData = {
       amount: +inputValues.amount,
-      date: new Date(inputValues.date),
+      date: inputValues.date,
       title: inputValues.title,
     };
     console.log(expenseData);
