@@ -1,5 +1,6 @@
 import { ScrollView, View, Text, StyleSheet } from "react-native";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
+import { fetchExpenses } from "../util/http";
 import ExpenseList from "../components/ExpenseList";
 import ExpensesSummary from "../components/ExpensesSummary";
 
@@ -7,6 +8,16 @@ import { ExpensesContext } from "../components/store/expenses-context";
 
 function RecentExpenses() {
   const ExpensesCtx = useContext(ExpensesContext);
+
+  const [fetchedExpenses, setFetchedExpenses] = useState([]);
+
+  useEffect(() => {
+    async function getExpenses() {
+      const expenses = await fetchExpenses();
+      ExpensesCtx.setExpenses(expenses);
+    }
+    getExpenses();
+  }, []);
 
   let sevenDaysAgo = new Date();
   sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 14);

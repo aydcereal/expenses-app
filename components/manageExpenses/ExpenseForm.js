@@ -21,6 +21,7 @@ function ExpenseForm({ onCancel, onSubmit, submitButtonLabel, defaultValue }) {
   });
 
   function inputChangedHandler(inputIdentifier, enteredValue) {
+    console.log(enteredValue.value);
     setInputs((curInputs) => {
       return {
         ...curInputs,
@@ -30,12 +31,13 @@ function ExpenseForm({ onCancel, onSubmit, submitButtonLabel, defaultValue }) {
   }
 
   function submitHandler() {
-    console.log(inputs);
     const expenseData = {
       amount: +inputs.amount.value,
       date: new Date(inputs.date.value),
       title: String(inputs.title.value),
     };
+
+    console.log("expenseData", expenseData.title);
 
     const amountIsValid = !isNaN(expenseData.amount) && expenseData.amount > 0;
     const dateIsValid = expenseData.date.toString() !== "Invalid Date";
@@ -67,7 +69,7 @@ function ExpenseForm({ onCancel, onSubmit, submitButtonLabel, defaultValue }) {
         invalid={!inputs.title.isValid}
         textInputConfig={{
           multiLine: true,
-          onChange: inputChangedHandler.bind(this, "title"),
+          onChangeText: inputChangedHandler.bind(this, "title"),
           value: inputs.title.value,
         }}
       />
@@ -78,7 +80,7 @@ function ExpenseForm({ onCancel, onSubmit, submitButtonLabel, defaultValue }) {
           invalid={!inputs.amount.isValid}
           textInputConfig={{
             keyboardType: "decimal-pad",
-            onChange: inputChangedHandler.bind(this, "amount"),
+            onChangeText: inputChangedHandler.bind(this, "amount"),
             value: inputs.amount.value,
           }}
         />
@@ -89,7 +91,7 @@ function ExpenseForm({ onCancel, onSubmit, submitButtonLabel, defaultValue }) {
           textInputConfig={{
             placeholder: "YYYY-MM-DD",
             maxLength: 10,
-            onChange: inputChangedHandler.bind(this, "date"),
+            onChangeText: inputChangedHandler.bind(this, "date"),
             value: inputs.date.value,
           }}
         />
