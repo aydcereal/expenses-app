@@ -11,7 +11,7 @@ function AllExpenses() {
   let sortedExpenses = expensesCtx.expenses.sort((a, b) => {
     let dateA = new Date(a.date),
       dateB = new Date(b.date);
-    return dateB - dateA;
+    return dateA - dateB;
   });
 
   let totalAmount = sortedExpenses.reduce(

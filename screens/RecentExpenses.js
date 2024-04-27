@@ -5,19 +5,41 @@ import ExpenseList from "../components/ExpenseList";
 import ExpensesSummary from "../components/ExpensesSummary";
 
 import { ExpensesContext } from "../components/store/expenses-context";
+import LoadingOverlay from "../components/LoadingOverlay";
+import ErrorOverlay from "../components/ErrorOverlay";
 
 function RecentExpenses() {
   const ExpensesCtx = useContext(ExpensesContext);
 
-  const [fetchedExpenses, setFetchedExpenses] = useState([]);
+  const [isFetching, setIsFetching] = useState(true);
+  const [error, setError] = useState();
 
   useEffect(() => {
     async function getExpenses() {
-      const expenses = await fetchExpenses();
-      ExpensesCtx.setExpenses(expenses);
+      setIsFetching(true);
+      try {
+        const expenses = await fetchExpenses();
+        ExpensesCtx.setExpenses(expenses);
+      } catch (error) {
+        setError("Could not fetch expenses!");
+      }
+
+      setIsFetching(false);
     }
     getExpenses();
   }, []);
+
+  function errorHandler() {
+    setError(null);
+  }
+
+  if (error && !isFetching) {
+    return <ErrorOverlay message={error} onConfirm={errorHandler} />;
+  }
+
+  if (isFetching) {
+    return <LoadingOverlay />;
+  }
 
   let sevenDaysAgo = new Date();
   sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 14);
@@ -30,7 +52,7 @@ function RecentExpenses() {
   let sortedExpenses = filteredExpenses.sort((a, b) => {
     let dateA = new Date(a.date),
       dateB = new Date(b.date);
-    return dateB - dateA;
+    return dateA - dateB;
   });
 
   let totalAmount = sortedExpenses.reduce(
